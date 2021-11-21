@@ -1,5 +1,5 @@
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./token.json');
+const { token, clientID, guildID } = require('./config.json');
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -25,9 +25,6 @@ for(const file of eventFiles) {
 	}
 }
 
-const clientId = '726923787005722768';
-const guildId = '758786724767334421';
-
 const rest = new REST({ version: '9' }).setToken(token);
 
 (async () => {
@@ -35,7 +32,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 		console.log('Started refreshing application (/) commands.');
 
 		await rest.put(
-			Routes.applicationGuildCommands(clientId, guildId),
+			Routes.applicationGuildCommands(clientID, guildID),
 			{ body: commands },
 		);
 
