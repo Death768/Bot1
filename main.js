@@ -1,4 +1,4 @@
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const { token } = require('./token.json');
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
