@@ -4,7 +4,7 @@ const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 bot.commands = new Collection();
 const commands = [];
