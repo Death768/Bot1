@@ -1,11 +1,10 @@
 module.exports = {
 	name: "interactionCreate",
 	once: false,
-	async execute(interaction, commands) {
-		console.log(interaction);
+	async execute(bot, interaction) {
 		if (!interaction.isCommand()) return;
 
-		const command = commands.get(interaction.commandName);
+		const command = bot.commands.get(interaction.commandName);
 
 		if (!command) return;
 
