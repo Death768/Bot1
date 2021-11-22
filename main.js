@@ -1,11 +1,13 @@
 const { Client, Collection, Intents } = require('discord.js');
-const { token, clientId, guildId } = require('./config.json');
+const config = require('./config.json');
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const mongoose = require('mongoose');
 
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
+//load commands
 bot.commands = new Collection();
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -15,6 +17,7 @@ for (const file of commandFiles) {
 	commands.push(command.data.toJSON());
 }
 
+//load events
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for(const file of eventFiles) {
 	const event = require(`./events/${file}`);
@@ -25,14 +28,14 @@ for(const file of eventFiles) {
 	}
 }
 
-const rest = new REST({ version: '9' }).setToken(token);
-
+//sync slash commands
+const rest = new REST({ version: '9' }).setToken(config.token);
 (async () => {
 	try {
 		console.log('Started refreshing application (/) commands.');
 
 		await rest.put(
-			Routes.applicationGuildCommands(clientId, guildId),
+			Routes.applicationGuildCommands(config.clientId, config.guildId),
 			{ body: commands },
 		);
 
@@ -42,4 +45,14 @@ const rest = new REST({ version: '9' }).setToken(token);
 	}
 })();
 
-bot.login(token);
+//mongodb server connect
+mongoose.connect(config.mongodb, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+}).then(() => {
+	console.log('Connected to MongoDB!')
+}).catch((err) => {
+	console.log('Unable to connect to MongoDB Database.\nError: ' + err)
+});
+
+bot.login(config.token);
