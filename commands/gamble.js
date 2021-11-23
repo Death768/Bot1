@@ -15,8 +15,10 @@ module.exports = {
 				.setDescription('amount to gamble')
 				.setRequired(true)),
 	async execute(interaction) {
-		const winPercentage = 35000;
-		let rng = getRandomInt(100000);
+		const jackpotPercentage = 10;
+		const jackpotMultiplier = 7;
+		const winPercentage = 3500;
+		let rng = getRandomInt(10000);
 
 		if(interaction.options._hoistedOptions[0].value <= 0) {
 			interaction.reply(`Please gamble more than 0 coins.`);
@@ -34,7 +36,10 @@ module.exports = {
 				return;
 			}
 
-			if(rng <= winPercentage) {
+			if(rng <= jackpotPercentage) {
+				wallet.balance += interaction.options._hoistedOptions[0].value * jackpotMultiplier;
+				interaction.reply(`Jackpot! You just won ${jackpotMultiplier * interaction.options._hoistedOptions[0].value} coins!`);
+			} else if(rng <= winPercentage) {
 				wallet.balance += interaction.options._hoistedOptions[0].value;
 				interaction.reply(`You won ${interaction.options._hoistedOptions[0].value} coins.`);
 			} else {
