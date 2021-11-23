@@ -32,8 +32,7 @@ module.exports = {
 			if(!wallet) {
 				const newWallet = new Wallet({
 					user_id: message.author.id,
-					guild_id: message.guild.id,
-					balance: 0
+					guild_id: message.guild.id
 				});
 
 				newWallet.save().then(err).catch(err => console.log(err));
