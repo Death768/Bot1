@@ -5,6 +5,8 @@ module.exports = {
 	name: "messageCreate",
 	once: false,
 	async execute(bot, message) {
+		if(message.author.bot) return;
+
 		User.findOne({
 			user_id: message.author.id,
 			guild_id: message.guild.id
