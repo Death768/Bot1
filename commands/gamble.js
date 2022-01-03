@@ -15,7 +15,7 @@ module.exports = {
 				.setDescription('amount to gamble')
 				.setRequired(true)),
 	async execute(interaction) {
-		const jackpotPercentage = 1;
+		const jackpotPercentage = 10;
 		const jackpotMultiplier = 69420;
 		const winPercentage = 42069;
 		let rng = getRandomInt(100000);
