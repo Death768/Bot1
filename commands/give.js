@@ -58,9 +58,9 @@ module.exports = {
 		});
 
 		if(!aborted) {
-			let giver = interaction.guild.members.cache.get(interaction.user.id) || "User Not Found";
-			let reciever = interaction.guild.members.cache.get(interaction.options._hoistedOptions[0].user.id) || "User Not Found";
-			interaction.reply(`${giver.nickname}, you transferred ${interaction.options._hoistedOptions[1].value} to ${reciever.nickname}.`);
+			let givername = interaction.guild.members.cache.get(interaction.user.id).nickname || interaction.guild.members.cache.get(interaction.user.id).username;
+			let recievername = interaction.guild.members.cache.get(interaction.options._hoistedOptions[0].user.id).nickname || interaction.guild.members.cache.get(interaction.options._hoistedOptions[0].user.id).user.username || "User Not Found";
+			interaction.reply(`${givername}, you transferred ${interaction.options._hoistedOptions[1].value} to ${recievername}.`);
 		}
 	}
 }
