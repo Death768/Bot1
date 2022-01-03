@@ -37,7 +37,7 @@ module.exports = {
 
 				newWallet.save().then(err).catch(err => console.log(err));
 			} else {
-				wallet.balance++;
+				wallet.balance += wallet.coinsPerMessage;
 				wallet.save().catch(err => console.log(err));
 			}
 		});

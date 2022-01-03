@@ -29,8 +29,10 @@ module.exports = {
 
 			if(!wallet) {
 				embed.addField("Coins", '0', true);
+				embed.addField("Coins Per Message", "1", true);
 			} else {
 				embed.addField("Coins", wallet.balance.toString(), true);
+				embed.addField("Coins Per Message", wallet.coinsPerMessage.toString(), true);
 			}
 
 			interaction.reply({ embeds: [embed] });
