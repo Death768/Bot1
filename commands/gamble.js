@@ -34,17 +34,17 @@ module.exports = {
 			if(interaction.options._hoistedOptions[0].value > wallet.balance) {
 				interaction.reply(`You do not have that many coins.`);
 				return;
-			}
-
-			if(rng <= jackpotPercentage) {
-				wallet.balance += interaction.options._hoistedOptions[0].value * jackpotMultiplier;
-				interaction.reply(`Jackpot! You just won ${jackpotMultiplier * interaction.options._hoistedOptions[0].value} coins!`);
-			} else if(rng <= winPercentage) {
-				wallet.balance += interaction.options._hoistedOptions[0].value;
-				interaction.reply(`You won ${interaction.options._hoistedOptions[0].value} coins.`);
 			} else {
-				wallet.balance -= interaction.options._hoistedOptions[0].value;
-				interaction.reply(`You lost ${interaction.options._hoistedOptions[0].value} coins.`);
+				if(rng <= jackpotPercentage) {
+					wallet.balance += interaction.options._hoistedOptions[0].value * jackpotMultiplier;
+					interaction.reply(`Jackpot! You just won ${jackpotMultiplier * interaction.options._hoistedOptions[0].value} coins!`);
+				} else if(rng <= winPercentage) {
+					wallet.balance += interaction.options._hoistedOptions[0].value;
+					interaction.reply(`You won ${interaction.options._hoistedOptions[0].value} coins.`);
+				} else {
+					wallet.balance -= interaction.options._hoistedOptions[0].value;
+					interaction.reply(`You lost ${interaction.options._hoistedOptions[0].value} coins.`);
+				}
 			}
 
 			wallet.save().catch(err => console.log(err));
