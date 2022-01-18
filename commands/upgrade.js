@@ -15,9 +15,9 @@ module.exports = {
 
 			let cost = 2147483647;
 			if(wallet.coinsPerMessage < 50) {
-				cost = 500 * wallet.coinsPerMessage;
+				cost = 100 * wallet.coinsPerMessage;
 			} else if(wallet.coinsPerMessage < 200) {
-				cost = 2000 * wallet.coinsPerMessage - 75000;
+				cost = 2000 * wallet.coinsPerMessage - 95000;
 			}
 
 			if(cost > wallet.balance) {
