@@ -58,4 +58,20 @@ mongoose.connect(config.mongodb, {
 	console.log('Unable to connect to MongoDB Database.\nError: ' + err)
 });
 
+//random event
+let min = 5, max = 10;
+let words = ['canis', 'coquus', 'est', 'filia', 'filius', 'hortus', 'in', 'laborat', 'mater', 'pater', 'sedet', 'servus', 'via',
+	'amicus', 'ancilla', 'cena', 'cibus', 'dominus', 'dormit', 'intrat', 'laetus', 'laudat', 'mercator', 'quoque', 'salutat',
+	'ad', 'bibit', 'circumspectat', 'clamat', 'ecce', 'et', 'exit', 'exspectat', 'ianua', 'iratus', 'leo', 'magnus', 'navis', 'non', 'portat', 'respondet', 'ridet', 'salve', 'surgit', 'taberna', 'videt', 'vinum'];
+const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
+(async() => {
+	while(true) {
+		let timeminutes = Math.floor(Math.random() * (max - min) + min) * 60 * 1000;
+		await sleep(timeminutes);
+		const channel = await bot.channels.fetch("775779221766668339");
+		let randomword = words[Math.floor(Math.random() * (words.length - 1))];
+		await channel.send(`Type ${randomword}`);
+	}
+})();
+
 bot.login(config.token);
