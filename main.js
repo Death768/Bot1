@@ -59,7 +59,7 @@ mongoose.connect(config.mongodb, {
 });
 
 //random event
-let min = 5, max = 10;
+/let min = 30, max = 40;
 let words = ['canis', 'coquus', 'est', 'filia', 'filius', 'hortus', 'in', 'laborat', 'mater', 'pater', 'sedet', 'servus', 'via',
 	'amicus', 'ancilla', 'cena', 'cibus', 'dominus', 'dormit', 'intrat', 'laetus', 'laudat', 'mercator', 'quoque', 'salutat',
 	'ad', 'bibit', 'circumspectat', 'clamat', 'ecce', 'et', 'exit', 'exspectat', 'ianua', 'iratus', 'leo', 'magnus', 'navis', 'non', 'portat', 'respondet', 'ridet', 'salve', 'surgit', 'taberna', 'videt', 'vinum'];
@@ -72,6 +72,6 @@ const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitT
 		let randomword = words[Math.floor(Math.random() * (words.length - 1))];
 		await channel.send(`Type ${randomword}`);
 	}
-})();
+})();*/
 
 bot.login(config.token);

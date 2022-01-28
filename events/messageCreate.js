@@ -10,7 +10,7 @@ module.exports = {
 	once: false,
 	async execute(bot, message) {
 		//input random word
-		if(message.author.id === bot.user.id) {
+		/*if(message.author.id === bot.user.id) {
 			if(!message.content.startsWith('Type')) return;
 			let w = message.content.slice(4).trim().split(/\s+/);
 
@@ -31,12 +31,12 @@ module.exports = {
 				if (err) console.log("Error writing file:", err);
 			});
 			return;
-		}
+		}*/
 
 		if(message.author.bot) return;
 		
 		//check if get karma
-		fs.readFile("../word.json", "utf8", (err, jsonString) => {
+		/*fs.readFile("../word.json", "utf8", (err, jsonString) => {
 			if (err) {
 				console.log("File read failed:", err);
 				return;
@@ -56,7 +56,7 @@ module.exports = {
 			} catch (err) {
 				console.log("Error parsing JSON string:", err);
 			}
-		});
+		});*/
 		
 
 		User.findOne({
