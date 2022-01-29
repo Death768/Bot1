@@ -59,7 +59,7 @@ mongoose.connect(config.mongodb, {
 });
 
 //random event
-/let min = 30, max = 40;
+/*let min = 30, max = 40;
 let words = ['canis', 'coquus', 'est', 'filia', 'filius', 'hortus', 'in', 'laborat', 'mater', 'pater', 'sedet', 'servus', 'via',
 	'amicus', 'ancilla', 'cena', 'cibus', 'dominus', 'dormit', 'intrat', 'laetus', 'laudat', 'mercator', 'quoque', 'salutat',
 	'ad', 'bibit', 'circumspectat', 'clamat', 'ecce', 'et', 'exit', 'exspectat', 'ianua', 'iratus', 'leo', 'magnus', 'navis', 'non', 'portat', 'respondet', 'ridet', 'salve', 'surgit', 'taberna', 'videt', 'vinum'];
