@@ -27,7 +27,7 @@ module.exports = {
 				if(res.length == 0) {
 					embed.setColor("RED");
 					embed.addField("No data found", "Please type in chat to earn coins!")
-				} else if(res.length < 10) {
+				} else if(res.length < 5) {
 					embed.setColor("BLURPLE");
 					for(i = 0; i < res.length; i++) {
 						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
@@ -41,7 +41,7 @@ module.exports = {
 					}
 				} else {
 					embed.setColor("BLURPLE");
-					for(i = 0; i < 10; i++) {
+					for(i = 0; i < 5; i++) {
 						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
 						if(member == "User Not Found") {
 							embed.addField(`${i + 1}. ${member}`, `**Coins**: ${res[i].balance}`);
@@ -58,7 +58,7 @@ module.exports = {
 				if(res.length == 0) {
 					embed.setColor("RED");
 					embed.addField("No data found", "Please type in chat to earn coins!")
-				} else if(res.length < 10) {
+				} else if(res.length < 5) {
 					embed.setColor("BLURPLE");
 					for(i = 0; i < res.length; i++) {
 						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
@@ -72,7 +72,7 @@ module.exports = {
 					}
 				} else {
 					embed.setColor("BLURPLE");
-					for(i = 0; i < 10; i++) {
+					for(i = 0; i < 5; i++) {
 						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
 						if(member == "User Not Found") {
 							embed.addField(`${i + 1}. ${member}`, `**CPM**: ${res[i].coinsPerMessage}`);
