@@ -8,56 +8,8 @@ const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitT
 module.exports = {
 	name: "messageCreate",
 	once: false,
-	async execute(bot, message) {
-		//input random word
-		/*if(message.author.id === bot.user.id) {
-			if(!message.content.startsWith('Type')) return;
-			let w = message.content.slice(4).trim().split(/\s+/);
-
-			let input = {
-				word: w
-			};
-			await fs.writeFile("../word.json", JSON.stringify(input), err => {
-				if (err) console.log("Error writing file:", err);
-			});
-
-			await sleep(30 * 1000);
-			message.delete();
-
-			input = {
-				word: ""
-			};
-			await fs.writeFile("../word.json", JSON.stringify(word), err => {
-				if (err) console.log("Error writing file:", err);
-			});
-			return;
-		}*/
-
+	async execute(bot, message, karmaWord) {
 		if(message.author.bot) return;
-		
-		//check if get karma
-		/*fs.readFile("../word.json", "utf8", (err, jsonString) => {
-			if (err) {
-				console.log("File read failed:", err);
-				return;
-			}
-			try {
-				const word = JSON.parse(jsonString);
-				if(message.content == word.word[0]) {
-					message.reply(`You typed the word first! You get 1 karma.`);
-
-					input = {
-						word: ""
-					};
-					fs.writeFile("../word.json", JSON.stringify(word), err => {
-						if (err) console.log("Error writing file:", err);
-					});
-				}
-			} catch (err) {
-				console.log("Error parsing JSON string:", err);
-			}
-		});*/
-		
 
 		User.findOne({
 			user_id: message.author.id,

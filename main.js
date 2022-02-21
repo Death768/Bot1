@@ -64,13 +64,14 @@ let words = ['canis', 'coquus', 'est', 'filia', 'filius', 'hortus', 'in', 'labor
 	'amicus', 'ancilla', 'cena', 'cibus', 'dominus', 'dormit', 'intrat', 'laetus', 'laudat', 'mercator', 'quoque', 'salutat',
 	'ad', 'bibit', 'circumspectat', 'clamat', 'ecce', 'et', 'exit', 'exspectat', 'ianua', 'iratus', 'leo', 'magnus', 'navis', 'non', 'portat', 'respondet', 'ridet', 'salve', 'surgit', 'taberna', 'videt', 'vinum'];
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
+let karmaWord;
 (async() => {
 	while(true) {
-		let timeminutes = Math.floor(Math.random() * (max - min) + min) * 60 * 1000;
+		let timeminutes = Math.floor(Math.random() * (max - min) + min) * 1000;
 		await sleep(timeminutes);
 		const channel = await bot.channels.fetch("775779221766668339");
-		let randomword = words[Math.floor(Math.random() * (words.length - 1))];
-		await channel.send(`Type ${randomword}`);
+		karmaWord = words[Math.floor(Math.random() * (words.length - 1))];
+		await channel.send(`Type ${karmaWord}`);
 	}
 })();*/
 
