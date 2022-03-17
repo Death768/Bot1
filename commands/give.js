@@ -62,5 +62,9 @@ module.exports = {
 				interaction.reply(`${givername}, you transferred ${interaction.options._hoistedOptions[1].value} to ${recievername}.`);
 			}
 		});
+
+		if(aborted) {
+			interaction.reply(`Transaction failed for unknown reasons.`);
+		}
 	}
 }
