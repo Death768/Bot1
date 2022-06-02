@@ -1,6 +1,5 @@
 const User = require('../models/user.js');
 const Wallet = require('../models/wallet.js');
-const word = require('../word.json');
 const fs = require('fs');
 
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
@@ -8,7 +7,7 @@ const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitT
 module.exports = {
 	name: "messageCreate",
 	once: false,
-	async execute(bot, message, karmaWord) {
+	async execute(bot, message) {
 		if(message.author.bot) return;
 
 		User.findOne({

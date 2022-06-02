@@ -14,7 +14,7 @@ const bot = new Client({
 bot.commands = new Collection();
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
+for(const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	bot.commands.set(command.data.name, command);
 	commands.push(command.data.toJSON());
@@ -37,10 +37,12 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 	try {
 		console.log('Started refreshing application (/) commands.');
 
-		await rest.put(
-			Routes.applicationGuildCommands(config.clientId, config.guildId),
-			{ body: commands },
-		);
+		for(var i = 0; i < config.guildId.length; i++) {
+			await rest.put(
+				Routes.applicationGuildCommands(config.clientId, config.guildId[i]),
+				{ body: commands },
+			);
+		}
 
 		console.log('Successfully reloaded application (/) commands.');
 	} catch (error) {
