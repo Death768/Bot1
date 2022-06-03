@@ -1,8 +1,5 @@
 const User = require('../models/user.js');
 const Wallet = require('../models/wallet.js');
-const fs = require('fs');
-
-const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
 module.exports = {
 	name: "messageCreate",
