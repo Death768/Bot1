@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Wallet = require('../models/wallet.js');
 
 module.exports = {
@@ -22,17 +22,21 @@ module.exports = {
 		}, (err, wallet) => {
 			if(err) console.log(err);
 
-			let embed = new MessageEmbed()
+			let embed = new EmbedBuilder()
 				.setColor(target.member.displayHexColor)
 				.setTitle("Balance")
 				.setThumbnail(target.user.displayAvatarURL());
 
 			if(!wallet) {
-				embed.addField("Coins", '0', true);
-				embed.addField("Coins Per Message", "1", true);
+				embed.addFields([
+					{ name: 'Coins', value: '0' },
+					{ name: 'Coins Per Message', value: '1' }
+				]);
 			} else {
-				embed.addField("Coins", wallet.balance.toString(), true);
-				embed.addField("Coins Per Message", wallet.coinsPerMessage.toString(), true);
+				embed.addFields([
+					{ name: 'Coins', value: wallet.balance.toString() },
+					{ name: 'Coins Per Message', value: wallet.coinsPerMessage.toString() }
+				]);
 			}
 
 			interaction.reply({ embeds: [embed] });

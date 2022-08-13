@@ -1,8 +1,10 @@
+const { InteractionType } = require("discord.js");
+
 module.exports = {
 	name: "interactionCreate",
 	once: false,
 	async execute(bot, interaction) {
-		if (!interaction.isCommand()) return;
+		if (interaction.type !== InteractionType.ApplicationCommand) return;
 
 		const command = bot.commands.get(interaction.commandName);
 

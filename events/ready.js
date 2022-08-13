@@ -6,8 +6,9 @@ module.exports = {
 	execute(bot) {
 		console.log(`Logged in as ${bot.user.tag}!`);
 		//cache all members
-		for(var i = 0; i < config.guildId.length; i++) {
-			bot.guilds.fetch(config.guildId[i]).then((guild) => { guild.members.fetch() });
+		const Guilds = bot.guilds.cache.map(guild => guild.id);
+		for(const guild of Guilds) {
+			bot.guilds.fetch(guild).then((guild) => { guild.members.fetch() });
 		}
 	}
 }

@@ -1,12 +1,10 @@
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const config = require('./config.json');
-const fs = require('fs');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const fs = require('node:fs');
 const mongoose = require('mongoose');
 
 const bot = new Client({
-	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS],
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers],
 	fetchAllMembers: true
 });
 
@@ -30,25 +28,6 @@ for(const file of eventFiles) {
 		bot.on(event.name, (...args) => event.execute(bot, ...args));
 	}
 }
-
-//sync slash commands
-const rest = new REST({ version: '9' }).setToken(config.token);
-(async () => {
-	try {
-		console.log('Started refreshing application (/) commands.');
-
-		for(var i = 0; i < config.guildId.length; i++) {
-			await rest.put(
-				Routes.applicationGuildCommands(config.clientId, config.guildId[i]),
-				{ body: commands },
-			);
-		}
-
-		console.log('Successfully reloaded application (/) commands.');
-	} catch (error) {
-		console.error(error);
-	}
-})();
 
 //mongodb server connect
 mongoose.connect(config.mongodb, {
