@@ -40,10 +40,10 @@ mongoose.connect(config.mongodb, {
 });
 
 const chests = [
-	{ name: 'Common', value: 2, type: 1 },
-	{ name: 'Exquisite', value: 5, type: 2 },
-	{ name: 'Precious', value: 10, type: 3 },
-	{ name: 'Luxurious', value: 40, type: 4 }
+	{ name: 'Common', value: 2, type: 0 },
+	{ name: 'Exquisite', value: 5, type: 1 },
+	{ name: 'Precious', value: 10, type: 2 },
+	{ name: 'Luxurious', value: 40, type: 3 }
 ];
 
 //refactor asap
@@ -59,7 +59,7 @@ function weights(number) {
 	}
 }
 
-let minMinutes = 20, maxMinutes = 30;
+let minMinutes = 5, maxMinutes = 10;
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 (async() => {
 	while(true) {

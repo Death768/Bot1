@@ -55,6 +55,6 @@ module.exports = {
 			}
 		}).catch(err => console.log(err));			
 
-		await interaction.reply({ embeds: [embed] });
+		interaction.reply({ embeds: [embed] });
 	}
 }

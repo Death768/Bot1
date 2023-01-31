@@ -8,10 +8,10 @@ module.exports = {
 		if(interaction.type === InteractionType.MessageComponent) {
 			if(interaction.customId === 'chest') {
 				const chests = [
-					{ name: 'Common', value: 2, type: 1 },
-					{ name: 'Exquisite', value: 5, type: 2 },
-					{ name: 'Precious', value: 10, type: 3 },
-					{ name: 'Luxurious', value: 40, type: 4 }
+					{ name: 'Common', value: 2, type: 0 },
+					{ name: 'Exquisite', value: 5, type: 1 },
+					{ name: 'Precious', value: 10, type: 2 },
+					{ name: 'Luxurious', value: 40, type: 3 }
 				]
 
 				let chest = chests.find(c => c.name == interaction.message.content.split(" ")[1]);

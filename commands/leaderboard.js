@@ -10,8 +10,9 @@ module.exports = {
 			option.setName('selection')
 				.setDescription('leaderboard sorting')
 				.addChoices(
-					{ name: 'Coins', value: 'coins' },
-					{ name: 'CPM', value: 'cpm' }
+					{ name: 'Coins', value: 'balance' },
+					{ name: 'CPM', value: 'coinsPerMessage' },
+					{ name: 'Karma', value: 'karma' }
 				)),
 	async execute(interaction) {
 		Wallet.find({
@@ -22,91 +23,55 @@ module.exports = {
 			let embed = new EmbedBuilder()
 				.setTitle("Leaderboard");
 
-			let selectionOption = interaction.options.getString('selection');
-			if(!selectionOption || selectionOption == 'coins') {
-				res.sort(function(a, b) {return b.balance - a.balance});
+			let selectionOption = interaction.options.getString('selection') ?? 'balance';
+
+			let optionTypes = [
+				{ name: 'Coins', value: 'balance' },
+				{ name: 'CPM', value: 'coinsPerMessage' },
+				{ name: 'Karma', value: 'karma' }
+			]
+
+			let selectionName = optionTypes.find(c => c.value == selectionOption).name;
+			
+			res.sort(function(a, b) {return b[selectionOption] - a[selectionOption]});
 				
-				if(res.length == 0) {
-					embed.setColor("Red");
-					embed.addField("No data found", "Please type in chat to earn coins!")
-				} else if(res.length < 5) {
-					embed.setColor("Blurple");
-					for(i = 0; i < res.length; i++) {
-						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
-						if(member == "User Not Found") {
-							embed.addFields([
-								{ name: `${i + 1}. ${member}`, value: `**Coins**: ${res[i].balance}` }
-							]);
-						} else if(member.nickname) {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.nickname}`, value: `**Coins**: ${res[i].balance}` }
-							]);
-						} else {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.user.username}`, value: `**Coins**: ${res[i].balance}` }
-							]);
-						}
-					}
-				} else {
-					embed.setColor("Blurple");
-					for(i = 0; i < 5; i++) {
-						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
-						if(member == "User Not Found") {
-							embed.addFields([
-								{ name: `${i + 1}. ${member}`, value: `**Coins**: ${res[i].balance}` }
-							]);
-						} else if(member.nickname) {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.nickname}`, value: `**Coins**: ${res[i].balance}` }
-							]);
-						} else {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.user.username}`, value: `**Coins**: ${res[i].balance}` }
-							]);
-						}
+			if(res.length == 0) {
+				embed.setColor("Red");
+				embed.addField("No data found", "Please type in chat to earn coins!")
+			} else if(res.length < 5) {
+				embed.setColor("Blurple");
+				for(i = 0; i < res.length; i++) {
+					let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
+					if(member == "User Not Found") {
+						embed.addFields([
+							{ name: `${i + 1}. ${member}`, value: `**${selectionName}**: ${res[i][selectionOption]}` }
+						]);
+					} else if(member.nickname) {
+						embed.addFields([
+							{ name: `${i + 1}. ${member.nickname}`, value: `**${selectionName}**: ${res[i][selectionOption]}` }
+						]);
+					} else {
+						embed.addFields([
+							{ name: `${i + 1}. ${member.user.username}`, value: `**${selectionName}**: ${res[i][selectionOption]}` }
+						]);
 					}
 				}
-			} else if(selectionOption == 'cpm') {
-				res.sort(function(a, b) {return b.coinsPerMessage - a.coinsPerMessage});
-
-				if(res.length == 0) {
-					embed.setColor("Red");
-					embed.addField("No data found", "Please type in chat to earn coins!")
-				} else if(res.length < 5) {
-					embed.setColor("Blurple");
-					for(i = 0; i < res.length; i++) {
-						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
-						if(member == "User Not Found") {
-							embed.addFields([
-								{ name: `${i + 1}. ${member}`, value: `**CPM**: ${res[i].coinsPerMessage}` }
-							]);
-						} else if(member.nickname) {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.nickname}`, value : `**CPM**: ${res[i].coinsPerMessage}` }
-							]);
-						} else {
-							embed.addFields([
-								{ name : `${i + 1}. ${member.user.username}`, value: `**CPM**: ${res[i].coinsPerMessage}` }
-							]);
-						}
-					}
-				} else {
-					embed.setColor("Blurple");
-					for(i = 0; i < 5; i++) {
-						let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
-						if(member == "User Not Found") {
-							embed.addFields([
-								{ name: `${i + 1}. ${member}`, value: `**CPM**: ${res[i].coinsPerMessage}` }
-							]);
-						} else if(member.nickname) {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.nickname}`, value: `**CPM**: ${res[i].coinsPerMessage}` }
-							]);
-						} else {
-							embed.addFields([
-								{ name: `${i + 1}. ${member.user.username}`, value: `**CPM**: ${res[i].coinsPerMessage}` }
-							]);
-						}
+			} else {
+				embed.setColor("Blurple");
+				for(i = 0; i < 5; i++) {
+					let member = interaction.guild.members.cache.get(res[i].user_id) || "User Not Found";
+					if(member == "User Not Found") {
+						embed.addFields([
+							{ name: `${i + 1}. ${member}`, value: `**${selectionName}**: ${res[i][selectionOption]}` }
+						]);
+					} else if(member.nickname) {
+						embed.addFields([
+							{ name: `${i + 1}. ${member.nickname}`, value: `**${selectionName}**: ${res[i][selectionOption]}` }
+						]);
+					} else {
+						embed.addFields([
+							{ name: `${i + 1}. ${member.user.username}`, value: `**${selectionName}**: ${res[i][selectionOption]}` }
+						]);
 					}
 				}
 			}
