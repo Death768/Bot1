@@ -1,4 +1,5 @@
 const { InteractionType } = require("discord.js");
+const Karma = require("../models/karma.js");
 
 module.exports = {
 	name: "interactionCreate",
@@ -17,6 +18,26 @@ module.exports = {
 
 				await interaction.update({ content: `The ${chest.name} chest has been claimed by ${interaction.user.username}!`, components: [] });
 				await interaction.followUp({ content: `You collected the ${chest.name} chest and got ${chest.value} things!`, ephemeral: true });
+
+				Karma.findOne({
+					user_id: interaction.member.user.id,
+					guild_id: interaction.member.guild.id
+				}, (err, karma) => {
+					if(err) console.log(err);
+		
+					if(!karma) {
+						const newKarma = new Karma({
+							user_id: interaction.member.user.id,
+							guild_id: interaction.member.guild.id,
+							balance: chest.value
+						});
+		
+						newKarma.save().then(err).catch(err => console.log(err));
+					} else {
+						karma.balance += chest.value;
+						karma.save().catch(err => console.log(err));
+					}
+				});
 			}
 		} else if(interaction.type == InteractionType.ApplicationCommand) {
 			const command = bot.commands.get(interaction.commandName);

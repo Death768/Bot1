@@ -44,7 +44,7 @@ const chests = [
 	{ name: 'Exquisite', value: 5, type: 2 },
 	{ name: 'Precious', value: 10, type: 3 },
 	{ name: 'Luxurious', value: 40, type: 4 }
-]
+];
 
 //refactor asap
 function weights(number) {

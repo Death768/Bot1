@@ -54,9 +54,7 @@ module.exports = {
 			if(!aborted) {
 				wallet.balance += interaction.options._hoistedOptions[1].value;
 				wallet.save().catch(err => console.log(err));
-			}
 
-			if(!aborted) {
 				let givername = interaction.guild.members.cache.get(interaction.user.id).nickname || interaction.guild.members.cache.get(interaction.user.id).user.username;
 				let recievername = interaction.guild.members.cache.get(interaction.options._hoistedOptions[0].user.id).nickname || interaction.guild.members.cache.get(interaction.options._hoistedOptions[0].user.id).user.username || "User Not Found";
 				interaction.reply(`${givername}, you transferred ${interaction.options._hoistedOptions[1].value} to ${recievername}.`);
