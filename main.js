@@ -1,4 +1,4 @@
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const config = require('./config.json');
 const fs = require('node:fs');
 const mongoose = require('mongoose');
@@ -39,15 +39,46 @@ mongoose.connect(config.mongodb, {
 	console.log('Unable to connect to MongoDB Database.\nError: ' + err)
 });
 
-//random event
-/*let min = 30, max = 40;
+const chests = [
+	{ name: 'Common', value: 2, type: 1 },
+	{ name: 'Exquisite', value: 5, type: 2 },
+	{ name: 'Precious', value: 10, type: 3 },
+	{ name: 'Luxurious', value: 40, type: 4 }
+]
+
+//refactor asap
+function weights(number) {
+	if(number < 65) {
+		return 0;
+	} else if(number < 90) {
+		return 1;
+	} else if(number < 99) {
+		return 2;
+	} else {
+		return 3;
+	}
+}
+
+let minMinutes = 20, maxMinutes = 30;
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 (async() => {
 	while(true) {
-		let timeminutes = Math.floor(Math.random() * (max - min) + min) * 1000;
-		await sleep(timeminutes);
+		let timeInMinutes = Math.random() * (maxMinutes - minMinutes) + minMinutes;
+		await sleep(timeInMinutes * 60 * 1000);
 		const channel = await bot.channels.fetch("775779221766668339");
+		let chestSpawn = Math.floor(Math.random() * 100);
+		let chest = chests[weights(chestSpawn)];
+
+		const button = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setCustomId('chest')
+					.setLabel(`Claim ${chest.name} chest!`)
+					.setStyle(ButtonStyle.Primary)
+			);
+
+		await channel.send({ content: `${chest.type == 2 ? `An` : `A`} ${chest.name} chest has appeared! Click the button to claim it!`, components: [button] });
 	}
-})();*/
+})();
 
 bot.login(config.token);
