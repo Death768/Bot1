@@ -29,12 +29,12 @@ module.exports = {
 						const newKarma = new Karma({
 							user_id: interaction.member.user.id,
 							guild_id: interaction.member.guild.id,
-							balance: chest.value
+							karma: chest.value
 						});
 		
 						newKarma.save().then(err).catch(err => console.log(err));
 					} else {
-						karma.balance += chest.value;
+						karma.karma += chest.value;
 						karma.save().catch(err => console.log(err));
 					}
 				});

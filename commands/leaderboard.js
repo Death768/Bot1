@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, InviteGuild } = require('discord.js');
 const Wallet = require('../models/wallet.js');
+const Karma = require('../models/karma.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -15,23 +16,30 @@ module.exports = {
 					{ name: 'Karma', value: 'karma' }
 				)),
 	async execute(interaction) {
-		Wallet.find({
+		let embed = new EmbedBuilder()
+		.setTitle("Leaderboard");
+
+		let selectionOption = interaction.options.getString('selection') ?? 'balance';
+
+		let optionTypes = [
+			{ name: 'Coins', value: 'balance' },
+			{ name: 'CPM', value: 'coinsPerMessage' },
+			{ name: 'Karma', value: 'karma' }
+		]
+
+		let selectionName = optionTypes.find(c => c.value == selectionOption).name;
+		let selectionType;
+
+		if(selectionName === 'Coins' || selectionName === 'CPM') {
+			selectionType = Wallet;
+		} else if(selectionName === 'Karma') {
+			selectionType = Karma;
+		}
+
+		selectionType.find({
 			guild_id: interaction.guild.id
 		}, (err, res) => {
 			if(err) console.log(err);
-
-			let embed = new EmbedBuilder()
-				.setTitle("Leaderboard");
-
-			let selectionOption = interaction.options.getString('selection') ?? 'balance';
-
-			let optionTypes = [
-				{ name: 'Coins', value: 'balance' },
-				{ name: 'CPM', value: 'coinsPerMessage' },
-				{ name: 'Karma', value: 'karma' }
-			]
-
-			let selectionName = optionTypes.find(c => c.value == selectionOption).name;
 			
 			res.sort(function(a, b) {return b[selectionOption] - a[selectionOption]});
 				

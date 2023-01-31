@@ -7,7 +7,7 @@ const karmaSchema = new mongoose.Schema({
 	guild_id: {
 		type: String
 	},
-	balance: {
+	karma: {
 		type: Number,
 		default: 0
 	}

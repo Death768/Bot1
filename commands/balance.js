@@ -50,7 +50,7 @@ module.exports = {
 				]);
 			} else {
 				embed.addFields([
-					{ name: 'Karma', value: karma.balance.toString() }
+					{ name: 'Karma', value: karma.karma.toString() }
 				]);
 			}
 		}).catch(err => console.log(err));			
