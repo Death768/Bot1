@@ -17,7 +17,7 @@ module.exports = {
 				let chest = chests.find(c => c.name == interaction.message.content.split(" ")[1]);
 
 				await interaction.update({ content: `The ${chest.name} chest has been claimed by ${interaction.user.username}!`, components: [] });
-				await interaction.followUp({ content: `You collected the ${chest.name} chest and got ${chest.value} things!`, ephemeral: true });
+				await interaction.followUp({ content: `You collected the ${chest.name} chest and got ${chest.value} karma!`, ephemeral: true });
 
 				Karma.findOne({
 					user_id: interaction.member.user.id,
