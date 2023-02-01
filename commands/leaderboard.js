@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, InviteGuild } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Wallet = require('../models/wallet.js');
 const Karma = require('../models/karma.js');
 
