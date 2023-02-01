@@ -34,7 +34,7 @@ module.exports = {
 				interaction.reply(`You do not have that many coins.`);
 				return;
 			} else {
-				let balanceChange = Math.round(Math.floor(100 * (0.266 * Math.pow(total, 1.706) - 0.119 * Math.pow(total, 1.947) - 1.409)) * interaction.options._hoistedOptions[0].value / 100 - interaction.options._hoistedOptions[0].value);
+				let balanceChange = Math.round((0.044*Math.pow(total, 1.564) - 1.129) * interaction.options._hoistedOptions[0].value);
 				if(balanceChange > 0) {
 					wallet.balance += balanceChange;
 					interaction.reply(`You won ${balanceChange} coins.`);
