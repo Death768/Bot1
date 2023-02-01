@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
 const Wallet = require('../models/wallet.js');
 
 function getRandomInt(max) {
@@ -8,17 +7,17 @@ function getRandomInt(max) {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('gamble')
-		.setDescription('gamble money')
+		.setName('diceroll')
+		.setDescription('roll two dice')
 		.addIntegerOption(option =>
 			option.setName('amount')
 				.setDescription('amount to gamble')
 				.setRequired(true)),
 	async execute(interaction) {
-		const jackpotPercentage = 1;
-		const jackpotMultiplier = 69;
-		const winPercentage = 420;
-		let rng = getRandomInt(1000);
+		//role two dice from 1-6
+		const dice1 = getRandomInt(6) + 1;
+		const dice2 = getRandomInt(6) + 1;
+		const total = dice1 + dice2;
 
 		if(interaction.options._hoistedOptions[0].value <= 0) {
 			interaction.reply(`Please gamble more than 0 coins.`);
@@ -35,15 +34,13 @@ module.exports = {
 				interaction.reply(`You do not have that many coins.`);
 				return;
 			} else {
-				if(rng <= jackpotPercentage) {
-					wallet.balance += interaction.options._hoistedOptions[0].value * jackpotMultiplier;
-					interaction.reply(`Jackpot! You just won ${jackpotMultiplier * interaction.options._hoistedOptions[0].value} coins!`);
-				} else if(rng <= winPercentage) {
-					wallet.balance += interaction.options._hoistedOptions[0].value;
-					interaction.reply(`You won ${interaction.options._hoistedOptions[0].value} coins.`);
+				let balanceChange = Math.round(Math.floor(100 * (0.266 * Math.pow(total, 1.706) - 0.119 * Math.pow(total, 1.947) - 1.409)) * interaction.options._hoistedOptions[0].value / 100 - interaction.options._hoistedOptions[0].value);
+				if(balanceChange > 0) {
+					wallet.balance += balanceChange;
+					interaction.reply(`You won ${balanceChange} coins.`);
 				} else {
-					wallet.balance -= interaction.options._hoistedOptions[0].value;
-					interaction.reply(`You lost ${interaction.options._hoistedOptions[0].value} coins.`);
+					wallet.balance += balanceChange;
+					interaction.reply(`You lost ${-balanceChange} coins.`);
 				}
 			}
 
