@@ -1,0 +1,57 @@
+{
+	"Commoner": {
+		"name": "Commoner",
+		"karmaReq": 200,
+		"cpmMultiplier": 1.1,
+		"karmaScalar": 0,
+		"karmaCoeffient": 0,
+		"karmaExponent": 0,
+		"coinFlipWinChance": 0,
+		"coinFlipJackpotMultiplier": 0,
+		"coinFlipJackpotChance": 0
+	},
+	"Artisan": {
+		"name": "Artisan",
+		"karmaReq": 400,
+		"cpmMultiplier": 1.2,
+		"karmaScalar": 1.285,
+		"karmaCoeffient": 1.713,
+		"karmaExponent": 0.5104,
+		"coinFlipWinChance": 0,
+		"coinFlipJackpotMultiplier": 0,
+		"coinFlipJackpotChance": 0
+	},
+	"Vassal": {
+		"name": "Vassal",
+		"karmaReq": 800,
+		"cpmMultiplier": 1.3,
+		"karmaScalar": 6.574,
+		"karmaCoeffient": 7.105,
+		"karmaExponent": 0.2878,
+		"coinFlipWinChance": 2,
+		"coinFlipJackpotMultiplier": 0,
+		"coinFlipJackpotChance": 0
+	},
+	"Noble": {
+		"name": "Noble",
+		"karmaReq": 1600,
+		"cpmMultiplier": 1.4,
+		"karmaScalar": 19.393,
+		"karmaCoeffient": 19.948,
+		"karmaExponent": 0.1702,
+		"coinFlipWinChance": 5,
+		"coinFlipJackpotMultiplier": 25,
+		"coinFlipJackpotChance": 0
+	},
+	"Royal": {
+		"name": "Royal",
+		"karmaReq": 2800,
+		"cpmMultiplier": 1.5,
+		"karmaScalar": 49.608,
+		"karmaCoeffient": 50.146,
+		"karmaExponent": 0.0966,
+		"coinFlipWinChance": 8,
+		"coinFlipJackpotMultiplier": 50,
+		"coinFlipJackpotChance": 0.2
+	}
+}

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Karma = require('../models/karma.js');
+const Ranks = require('../ranks.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -10,35 +11,32 @@ module.exports = {
 			user_id: interaction.user.id,
 			guild_id: interaction.guild.id
 		}).then(karma => {
-			const ranks = [
-				{ name: 'Commoner', karma: 150 },
-				{ name: 'Artisan', karma: 300 },
-				{ name: 'Vassal', karma: 550 },
-				{ name: 'Noble', karma: 900 },
-				{ name: 'Royal', karma: 1350 }
-			];
+			const ranks = Object.keys(Ranks);
 
-			let nextRank = 0;
+			let found = false;
+			let nextRank = Ranks[ranks[0]];
 			for(let i = 0; i < ranks.length; i++) {
-				if(interaction.member.roles.cache.find(role => role.name === ranks[i].name)) {
-					nextRank = i + 1;
-					break;
+				if(interaction.member.roles.cache.find(role => role.name === Ranks[ranks[i]].name)) {
+					found = true;
+					nextRank = Ranks[ranks[i + 1]];
 				}
 			}
 
-			if(nextRank === ranks.length) {
+			if(found && nextRank === Ranks[ranks[0]]) nextRank = "";
+
+			if(nextRank === "") {
 				interaction.reply('You are already at the highest rank.');
 				return;
 			}
 
-			if(karma.karma < ranks[nextRank].karma) {
-				interaction.reply(`You do not have enough karma to promote, you need ${ranks[nextRank].karma} karma.`);
+			if(karma.karma < nextRank.karmaReq) {
+				interaction.reply(`You do not have enough karma to promote, you need ${nextRank.karmaReq} karma.`);
 				return;
 			}
 
-			interaction.member.roles.add(interaction.guild.roles.cache.find(role => role.name === ranks[nextRank].name));
+			interaction.member.roles.add(interaction.guild.roles.cache.find(role => role.name === nextRank.name));
 
-			interaction.reply(`You have promoted to ${ranks[nextRank].name}!`);
+			interaction.reply(`You have promoted to ${nextRank.name}!`);
 		}).catch(err => console.log(err));
 	}
 }
