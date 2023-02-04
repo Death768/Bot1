@@ -14,9 +14,9 @@ module.exports = {
 				.setDescription('amount to gamble')
 				.setRequired(true)),
 	async execute(interaction) {
-		const jackpotPercentage = 1;
-		const jackpotMultiplier = 69;
-		const winPercentage = 420;
+		const jackpotPercentage = 0;
+		const jackpotMultiplier = 10;
+		const winPercentage = 440;
 		let rng = getRandomInt(1000);
 
 		if(interaction.options._hoistedOptions[0].value <= 0) {
