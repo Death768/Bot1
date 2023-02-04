@@ -15,7 +15,7 @@ module.exports = {
 
 			let found = false;
 			let nextRank = Ranks[ranks[0]];
-			let currRank = Ranks[ranks[0]];
+			let currRank = null;
 			for(let i = 0; i < ranks.length; i++) {
 				if(interaction.member.roles.cache.find(role => role.name === Ranks[ranks[i]].name)) {
 					found = true;
@@ -37,7 +37,7 @@ module.exports = {
 			}
 
 			interaction.member.roles.add(interaction.guild.roles.cache.find(role => role.name === nextRank.name));
-			interaction.member.roles.remove(interaction.guild.roles.cache.find(role => role.name === currRank.name));
+			if(currRank) interaction.member.roles.remove(interaction.guild.roles.cache.find(role => role.name === currRank.name));
 
 			interaction.reply(`You have promoted to ${nextRank.name}!`);
 		}).catch(err => console.log(err));

@@ -54,7 +54,7 @@ module.exports = {
 					}
 				});
 
-				await interaction.followUp({ content: `You collected the ${chest.name} chest and got ${chest.value} karma!`, ephemeral: true });
+				await interaction.followUp({ content: `You collected the ${chest.name} chest and got ${amt} karma!`, ephemeral: true });
 			}
 		} else if(interaction.type == InteractionType.ApplicationCommand) {
 			const command = bot.commands.get(interaction.commandName);
