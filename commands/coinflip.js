@@ -25,11 +25,12 @@ module.exports = {
 			return;
 		}
 
+		const ranks = Object.keys(Ranks);
 		for(let i = 0; i < ranks.length; i++) {
-			if(interaction.member.roles.cache.find(role => role.name === Ranks[i].name)) {
-				winPercentage += Ranks[i].winPercentage * 10;
-				jackpotMultiplier += Ranks[i].jackpotMultiplier;
-				jackpotPercentage += Ranks[i].jackpotPercentage * 10;
+			if(interaction.member.roles.cache.find(role => role.name === Ranks[ranks[i]].name)) {
+				winPercentage += Ranks[ranks[i]].coinFlipWinChance * 10;
+				jackpotMultiplier += Ranks[ranks[i]].coinFlipJackpotMultiplier;
+				jackpotPercentage += Ranks[ranks[i]].coinFlipJackpotChance * 10;
 			}
 		}
 
