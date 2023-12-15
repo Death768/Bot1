@@ -39,8 +39,8 @@
 		"karmaScalar": 19.393,
 		"karmaCoefficient": 19.948,
 		"karmaExponent": 0.1702,
-		"coinFlipWinChance": 5,
-		"coinFlipJackpotMultiplier": 25,
+		"coinFlipWinChance": 4,
+		"coinFlipJackpotMultiplier": 20,
 		"coinFlipJackpotChance": 0
 	},
 	"Royal": {
@@ -50,8 +50,8 @@
 		"karmaScalar": 49.608,
 		"karmaCoefficient": 50.146,
 		"karmaExponent": 0.0966,
-		"coinFlipWinChance": 8,
-		"coinFlipJackpotMultiplier": 50,
-		"coinFlipJackpotChance": 0.2
+		"coinFlipWinChance": 6,
+		"coinFlipJackpotMultiplier": 40,
+		"coinFlipJackpotChance": 0.1
 	}
 }

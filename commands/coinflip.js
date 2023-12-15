@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Wallet = require('../models/wallet.js');
+const Ranks = require('../ranks.json');
 
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
@@ -14,14 +15,22 @@ module.exports = {
 				.setDescription('amount to gamble')
 				.setRequired(true)),
 	async execute(interaction) {
-		const jackpotPercentage = 0;
-		const jackpotMultiplier = 10;
-		const winPercentage = 440;
+		let jackpotPercentage = 1;
+		let jackpotMultiplier = 10;
+		let winPercentage = 440;
 		let rng = getRandomInt(1000);
 
 		if(interaction.options._hoistedOptions[0].value <= 0) {
 			interaction.reply(`Please gamble more than 0 coins.`);
 			return;
+		}
+
+		for(let i = 0; i < ranks.length; i++) {
+			if(interaction.member.roles.cache.find(role => role.name === Ranks[i].name)) {
+				winPercentage += Ranks[i].winPercentage * 10;
+				jackpotMultiplier += Ranks[i].jackpotMultiplier;
+				jackpotPercentage += Ranks[i].jackpotPercentage * 10;
+			}
 		}
 
 		Wallet.findOne({
